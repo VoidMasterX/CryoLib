@@ -13,13 +13,18 @@ local Services = setmetatable({}, {__index = function(Self, Index)
     return NewService
 end})
 
+-- Create UI Function
 function Library:CreateWindow(winopts)
     -- Create Metatable Variables
     self.options = {}
     self.options.Text = (winopts and winopts.Text) or "UI TITLE"
-    self.options.LibColor = (winopts and winopts.LibColor) or Color3.fromRGB(85, 170, 255)
+    self.options.Color = (winopts and winopts.Color) or Color3.fromRGB(85, 170, 255)
+    self.options.Key = (winopts and winopts.Key) or "RightShift"
     self.windowdrag = true
     self.sliderdrag = false
+
+    -- Create Regular Variables
+    local WinTypes = {}
 
     -- Create Main Window GUI
     local CryoLib = Instance.new("ScreenGui")
@@ -149,6 +154,7 @@ function Library:CreateWindow(winopts)
     tab_grid.CellPadding = UDim2.new(0, 10, 0, 10)
     tab_grid.CellSize = UDim2.new(0, 229, 0, 390)
 
+    -- Buttons
     exit.MouseButton1Click:Connect(function()
         CryoLib:Destroy()
     end)
@@ -158,6 +164,82 @@ function Library:CreateWindow(winopts)
             Rotation = mini.Rotation - 180
         })
     end)
+
+    -- Dragging
+    local userinputservice = Services["UserInputService"]
+    local dragInput, dragStart, startPos = nil, nil, nil
+
+    core.InputBegan:Connect(function(input)
+        if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and userinputservice:GetFocusedTextBox() == nil then
+            dragStart = input.Position
+            startPos = core.Position
+            windowdrag = true
+            input.Changed:Connect(function()
+                if (input.UserInputState == Enum.UserInputState.End) then
+                    windowdrag = false
+                end
+            end)
+        end
+    end)
+
+    core.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+            dragInput = input
+        end
+    end)
+
+    userinputservice.InputChanged:Connect(function(input)
+        if input == dragInput and windowdrag and not sliderdrag then
+            local Delta = input.Position - dragStart
+            local Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + Delta.X, startPos.Y.Scale, startPos.Y.Offset + Delta.Y)
+            Services["TweenService"]:Create(core, TweenInfo.new(0.100), {Position = Position}):Play()
+        end
+    end)
+
+    -- Window Toggle
+    userinputservice.InputBegan:connect(function(input)
+        if input.KeyCode == Enum.KeyCode[self.options.Key] then
+            Luminosity.Enabled = not Luminosity.Enabled
+        end
+    end)
+
+    -- Title
+    function WinTypes:SetTitle(title)
+        title_2.Text = title
+    end
+
+    function WinTypes:GetTitle(title)
+        return title_2.Text
+    end
+
+    -- Color
+    function WinTypes:SetColor(color)
+        self.options.Color = color
+    end
+
+    function WinTypes:GetColor()
+        return self.options.Color
+    end
+
+    -- Visibility
+    function WinTypes:ToggleVisibility()
+        CryoLib.Enabled = not CryoLib.Enabled
+    end
+
+    function WinTypes:SetVisibility(visibility)
+        CryoLib.Enabled = visibility
+    end
+
+    function WinTypes:GetVisibility()
+        return CryoLib.Enabled
+    end
+
+    -- Tab
+    function WinTypes:CreateSection(Text)
+        
+    end
+
+    return WinTypes
 end
 
 return Library
