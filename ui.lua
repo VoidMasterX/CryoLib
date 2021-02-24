@@ -22,7 +22,7 @@ function Library:CreateWindow(winopts)
     self.options.Key = (winopts and winopts.Key) or "RightShift"
     self.windowdrag = true
     self.sliderdrag = false
-    self.window_minified = false
+    self.window_minified = true
 
     -- Create Regular Variables
     local WinTypes = {}
@@ -256,7 +256,7 @@ function Library:CreateWindow(winopts)
     end
 
     -- Tab
-    function WinTypes:CreateSection(Text)
+    function WinTypes:CreateTabSection(Text)
         
     end
 
