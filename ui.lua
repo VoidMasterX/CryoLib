@@ -1,11 +1,22 @@
+-- Module Init
 local Library = {}
 Library.__index = Library
 local self = setmetatable({}, Library)
 
+-- Services
+local Services = setmetatable({}, {__index = function(Self, Index)
+    local GetService = game.GetService
+    local NewService = GetService(game, Index)
+    if NewService then
+        Self[Index] = NewService
+    end
+    return NewService
+end})
+
 function Library:CreateWindow(winopts)
     -- Create Metatable Variables
     self.options = {}
-    self.options.Text = (winopts and winopts.Title) or "UI TITLE"
+    self.options.Text = (winopts and winopts.Text) or "UI TITLE"
     self.options.LibColor = (winopts and winopts.LibColor) or Color3.fromRGB(85, 170, 255)
     self.windowdrag = true
     self.sliderdrag = false
@@ -143,7 +154,9 @@ function Library:CreateWindow(winopts)
     end)
 
     mini.MouseButton1Click:Connect(function()
-        mini.Rotation = mini.Rotation - 180
+        Services["TweenService"]:Create(mini, TweenInfo.new(0.250, Enum.EasingStyle.Quint), {
+            Rotation = mini.Rotation - 180
+        })
     end)
 end
 
