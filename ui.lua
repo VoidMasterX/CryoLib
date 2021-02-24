@@ -164,7 +164,7 @@ function Library:CreateWindow(winopts)
         sidebar.Visible = not sidebar.Visible
         tab_container.Visible = not tab_container.Visible
         self.window_minified = not self.window_minified
-        Services["TweenService"]:Create(core, TweenInfo.new(0.250, Enum.EasingStyle.Quint) {
+        Services["TweenService"]:Create(core, TweenInfo.new(0.250, Enum.EasingStyle.Quint), {
             Size = UDim2.new(0, 699, 0, (not self.window_minified and 30 or self.window_minified and 440))
         })
         wait(0.01)
