@@ -212,7 +212,12 @@ function Library:CreateWindow(winopts)
     -- Window Toggle
     userinputservice.InputBegan:connect(function(input)
         if input.KeyCode == Enum.KeyCode[self.options.Key] then
-            CryoLib.Enabled = not CryoLib.Enabled
+            sidebar.Visible = not sidebar.Visible
+            tab_container.Visible = not tab_container.Visible
+            topbar.Visible = not topbar.Visible
+            Services["TweenService"]:Create(core, TweenInfo.new(0.400, Enum.EasingStyle.Quint), {
+                BackgroundTransparency = core.BackgroundTransparency
+            }):Play()
         end
     end)
 
