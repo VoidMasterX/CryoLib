@@ -170,9 +170,7 @@ function Library:CreateWindow(winopts)
         self.window_minified = not self.window_minified
         sidebar.Visible = not self.window_minified
         tab_container.Visible = not self.window_minified
-        Services["TweenService"]:Create(core, TweenInfo.new(0.250, Enum.EasingStyle.Quint), {
-            Size = UDim2.new(0, 699, 0, (not self.window_minified and 30 or self.window_minified and 440))
-        }):Play()
+        core.Size = UDim2.new(0, 699, 0, (self.window_minified and 30 or not self.window_minified and 440))
         wait(0.01)
         Services["TweenService"]:Create(mini, TweenInfo.new(0.250, Enum.EasingStyle.Quint), {
             Rotation = mini.Rotation - 180
@@ -213,13 +211,6 @@ function Library:CreateWindow(winopts)
     -- Window Toggle
     userinputservice.InputBegan:connect(function(input)
         if input.KeyCode == Enum.KeyCode[self.options.Key] then
-            sidebar.Visible = not sidebar.Visible
-            tab_container.Visible = not tab_container.Visible
-            topbar.Visible = not topbar.Visible
-            Services["TweenService"]:Create(core, TweenInfo.new(0.400, Enum.EasingStyle.Quint), {
-                BackgroundTransparency = core.BackgroundTransparency
-            }):Play()
-            wait(0.01)
             core.Visible = not core.Visible
         end
     end)
