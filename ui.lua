@@ -25,15 +25,27 @@ function Library:CreateWindow(winopts)
     local tab_grid = Instance.new("UIGridLayout")
     local tab_padding = Instance.new("UIPadding")
 
-    -- Handle Protection
+    -- UI Protection
     local Protect = syn and syn.protect_gui or is_electron_function and gethui or function(ui) 
         ui.Parent = game.CoreGui
     end
     
     Protect(CryoLib)
 
+    local function RandomString(length)
+        local chars = {}
+        for i = 97, 122 do
+            table.insert(chars, string.char(i))
+        end
+        local string = ""
+        for i = 1, length do
+            string = string .. chars[math.random(1,#chars)]
+        end
+        return string
+    end
+
     -- Create Properties
-    CryoLib.Name = "CryoLib"
+    CryoLib.Name = RandomString(20)
     CryoLib.Parent = game.CoreGui
     CryoLib.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
@@ -90,6 +102,7 @@ function Library:CreateWindow(winopts)
     mini.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     mini.BackgroundTransparency = 1.000
     mini.BorderSizePixel = 0
+    mini.Rotation = 180
     mini.Position = UDim2.new(0.914163113, 0, 0, 0)
     mini.Size = UDim2.new(0, 30, 0, 30)
     mini.Image = "rbxassetid://6031094687"
@@ -101,7 +114,7 @@ function Library:CreateWindow(winopts)
     title_2.Position = UDim2.new(0.0143061522, 0, 0, 0)
     title_2.Size = UDim2.new(0, 190, 0, 30)
     title_2.Font = Enum.Font.GothamBold
-    title_2.Text = "UI TITLE"
+    title_2.Text = self.options.Text
     title_2.TextColor3 = Color3.fromRGB(255, 255, 255)
     title_2.TextSize = 14.000
     title_2.TextXAlignment = Enum.TextXAlignment.Left
@@ -124,6 +137,14 @@ function Library:CreateWindow(winopts)
     tab_grid.SortOrder = Enum.SortOrder.LayoutOrder
     tab_grid.CellPadding = UDim2.new(0, 10, 0, 10)
     tab_grid.CellSize = UDim2.new(0, 229, 0, 390)
+
+    exit.MouseButton1Click:Connect(function()
+        CryoLib:Destroy()
+    end)
+
+    mini.MouseButton1Click:Connect(function()
+        mini.Rotation = mini.Rotation - 180
+    end)
 end
 
 return Library
