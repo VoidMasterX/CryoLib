@@ -157,6 +157,11 @@ function Library:CreateWindow(winopts)
 
     -- Buttons
     exit.MouseButton1Click:Connect(function()
+        sidebar.Visible = false
+        tab_container.Visible = false
+        Services["TweenService"]:Create(core, TweenInfo.new(0.400, Enum.EasingStyle.Quint), {
+            BackgroundTransparency = 1
+        })
         CryoLib:Destroy()
     end)
 
