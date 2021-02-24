@@ -161,7 +161,7 @@ function Library:CreateWindow(winopts)
         tab_container.Visible = false
         Services["TweenService"]:Create(core, TweenInfo.new(0.400, Enum.EasingStyle.Quint), {
             BackgroundTransparency = 1
-        })
+        }):Play()
         CryoLib:Destroy()
     end)
 
@@ -171,11 +171,11 @@ function Library:CreateWindow(winopts)
         self.window_minified = not self.window_minified
         Services["TweenService"]:Create(core, TweenInfo.new(0.250, Enum.EasingStyle.Quint), {
             Size = UDim2.new(0, 699, 0, (not self.window_minified and 30 or self.window_minified and 440))
-        })
+        }):Play()
         wait(0.01)
         Services["TweenService"]:Create(mini, TweenInfo.new(0.250, Enum.EasingStyle.Quint), {
             Rotation = mini.Rotation - 180
-        })
+        }):Play()
     end)
 
     -- Dragging
