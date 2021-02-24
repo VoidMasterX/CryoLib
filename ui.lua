@@ -22,6 +22,7 @@ function Library:CreateWindow(winopts)
     self.options.Key = (winopts and winopts.Key) or "RightShift"
     self.windowdrag = true
     self.sliderdrag = false
+    self.window_minified = false
 
     -- Create Regular Variables
     local WinTypes = {}
@@ -160,6 +161,13 @@ function Library:CreateWindow(winopts)
     end)
 
     mini.MouseButton1Click:Connect(function()
+        sidebar.Visible = not sidebar.Visible
+        tab_container.Visible = not tab_container.Visible
+        self.window_minified = not self.window_minified
+        Services["TweenService"]:Create(core, TweenInfo.new(0.250, Enum.EasingStyle.Quint) {
+            Size = UDim2.new(0, 699, 0, (not self.window_minified and 30 or self.window_minified and 440))
+        })
+        wait(0.01)
         Services["TweenService"]:Create(mini, TweenInfo.new(0.250, Enum.EasingStyle.Quint), {
             Rotation = mini.Rotation - 180
         })
@@ -199,7 +207,7 @@ function Library:CreateWindow(winopts)
     -- Window Toggle
     userinputservice.InputBegan:connect(function(input)
         if input.KeyCode == Enum.KeyCode[self.options.Key] then
-            Luminosity.Enabled = not Luminosity.Enabled
+            CryoLib.Enabled = not CryoLib.Enabled
         end
     end)
 
