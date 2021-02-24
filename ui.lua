@@ -162,13 +162,14 @@ function Library:CreateWindow(winopts)
         Services["TweenService"]:Create(core, TweenInfo.new(0.400, Enum.EasingStyle.Quint), {
             BackgroundTransparency = 1
         }):Play()
+        wait(0.4)
         CryoLib:Destroy()
     end)
 
     mini.MouseButton1Click:Connect(function()
-        sidebar.Visible = not sidebar.Visible
-        tab_container.Visible = not tab_container.Visible
         self.window_minified = not self.window_minified
+        sidebar.Visible = not self.window_minified
+        tab_container.Visible = not self.window_minified
         Services["TweenService"]:Create(core, TweenInfo.new(0.250, Enum.EasingStyle.Quint), {
             Size = UDim2.new(0, 699, 0, (not self.window_minified and 30 or self.window_minified and 440))
         }):Play()
@@ -218,6 +219,8 @@ function Library:CreateWindow(winopts)
             Services["TweenService"]:Create(core, TweenInfo.new(0.400, Enum.EasingStyle.Quint), {
                 BackgroundTransparency = core.BackgroundTransparency
             }):Play()
+            wait(0.01)
+            core.Visible = not core.Visible
         end
     end)
 
