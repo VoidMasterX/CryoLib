@@ -19,7 +19,7 @@ local Services = setmetatable({}, {__index = function(Self, Index)
     return NewService
 end})
 
--- Create UI Function
+-- Create UI Lib
 function Library:CreateWindow(winopts)
     local options = {}
     local windowdrag = false
@@ -334,6 +334,12 @@ function Library:CreateWindow(winopts)
             tab_grid.CellPadding = UDim2.new(0, 10, 0, 10)
             tab_grid.CellSize = UDim2.new(0, 229, 0, 390)
 
+            tab_padding.Name = "tab_padding"
+            tab_padding.Parent = tab_container
+            tab_padding.PaddingLeft = UDim.new(0, 10)
+            tab_padding.PaddingTop = UDim.new(0, 10)
+
+
             tab.MouseButton1Click:Connect(function()
                 tab.TextColor3 = options.Color
                 tab_container.Visible = not tab_container.Visible
@@ -348,6 +354,80 @@ function Library:CreateWindow(winopts)
                     end
                 end
             end)
+
+            function tabTypes:CreateGroupbox(Name)
+                Name = Name or "GROUPBOX TITLE"
+                local GroupTypes = {}
+
+                local groupbox = Instance.new("Frame")
+                local titlebox = Instance.new("Frame")
+                local title_3 = Instance.new("TextLabel")
+                local group_container = Instance.new("ScrollingFrame")
+                local UIPadding = Instance.new("UIPadding")
+                local UIListLayout_2 = Instance.new("UIListLayout")
+                local groupbox_glow = Instance.new("ImageLabel")
+
+                groupbox.Name = "groupbox"
+                groupbox.Parent = tab_container
+                groupbox.BackgroundColor3 = Color3.fromRGB(27, 27, 40)
+                groupbox.BorderSizePixel = 0
+                groupbox.Position = UDim2.new(0.02004008, 0, 0.024390243, 0)
+                groupbox.Size = UDim2.new(0, 229, 0, 390)
+
+                titlebox.Name = "titlebox"
+                titlebox.Parent = groupbox
+                titlebox.BackgroundColor3 = options.Color
+                titlebox.BorderSizePixel = 0
+                titlebox.Size = UDim2.new(0, 229, 0, 30)
+
+                title_3.Name = "title"
+                title_3.Parent = titlebox
+                title_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                title_3.BackgroundTransparency = 1.000
+                title_3.Position = UDim2.new(0.0436681211, 0, 0, 0)
+                title_3.Size = UDim2.new(0, 219, 0, 30)
+                title_3.Font = Enum.Font.GothamSemibold
+                title_3.Text = Name
+                title_3.TextColor3 = Color3.fromRGB(255, 255, 255)
+                title_3.TextSize = 14.000
+                title_3.TextXAlignment = Enum.TextXAlignment.Left
+
+                group_container.Name = "group_container"
+                group_container.Parent = groupbox
+                group_container.Active = true
+                group_container.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                group_container.BackgroundTransparency = 1.000
+                group_container.BorderSizePixel = 0
+                group_container.Position = UDim2.new(0, 0, 0.0769230798, 0)
+                group_container.Size = UDim2.new(0, 229, 0, 360)
+                group_container.BottomImage = ""
+                group_container.CanvasSize = UDim2.new(0, 0, 0, 0)
+                group_container.ScrollBarThickness = 3
+                group_container.TopImage = ""
+
+                UIPadding.Parent = group_container
+                UIPadding.PaddingLeft = UDim.new(0, 10)
+                UIPadding.PaddingTop = UDim.new(0, 10)
+
+                UIListLayout_2.Parent = group_container
+                UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+                UIListLayout_2.Padding = UDim.new(0, 10)
+
+                groupbox_glow.Name = "groupbox_glow"
+                groupbox_glow.Parent = groupbox
+                groupbox_glow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                groupbox_glow.BackgroundTransparency = 1.000
+                groupbox_glow.BorderSizePixel = 0
+                groupbox_glow.Position = UDim2.new(0, -15, 0, -15)
+                groupbox_glow.Size = UDim2.new(1, 30, 1, 30)
+                groupbox_glow.ZIndex = 0
+                groupbox_glow.Image = "rbxassetid://4996891970"
+                groupbox_glow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+                groupbox_glow.ScaleType = Enum.ScaleType.Slice
+                groupbox_glow.SliceCenter = Rect.new(20, 20, 280, 280)
+
+                return GroupTypes
+            end
 
             tab_drop.Size = UDim2.new(0, 200, 0, UIListLayout.AbsoluteContentSize.Y)
             ResizeTabList()
