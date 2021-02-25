@@ -248,7 +248,63 @@ function Library:CreateWindow(winopts)
 
     -- Tab
     function WinTypes:CreateTabSection(Text)
-        
+        Text = Text or "TAB SECTION TITLE"
+
+        local tab_section = Instance.new("Frame")
+        local title = Instance.new("TextLabel")
+        local drop = Instance.new("ImageButton")
+        local tab_drop = Instance.new("Frame")
+
+        tab_section.Name = "tab_section"
+        tab_section.Parent = button_container
+        tab_section.BackgroundColor3 = Color3.fromRGB(85, 170, 255)
+        tab_section.BorderSizePixel = 0
+        tab_section.Size = UDim2.new(0, 200, 0, 31)
+
+        title.Name = "title"
+        title.Parent = tab_section
+        title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        title.BackgroundTransparency = 1.000
+        title.BorderSizePixel = 0
+        title.Position = UDim2.new(0.0500000007, 0, 0, 0)
+        title.Size = UDim2.new(0, 190, 0, 31)
+        title.Font = Enum.Font.GothamSemibold
+        title.Text = Text
+        title.TextColor3 = Color3.fromRGB(255, 255, 255)
+        title.TextSize = 14.000
+        title.TextXAlignment = Enum.TextXAlignment.Left
+
+        drop.Name = "drop"
+        drop.Parent = tab_section
+        drop.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        drop.BackgroundTransparency = 1.000
+        drop.BorderSizePixel = 0
+        drop.Position = UDim2.new(0.849163115, 0, 0, 0)
+        drop.Size = UDim2.new(0, 30, 0, 30)
+        drop.Image = "rbxassetid://6031094687"
+
+        tab_drop.Name = "tab_drop"
+        tab_drop.Parent = button_container
+        tab_drop.BackgroundColor3 = Color3.fromRGB(18, 18, 27)
+        tab_drop.BorderSizePixel = 0
+        tab_drop.Position = UDim2.new(0, 0, 0.0756097585, 0)
+        tab_drop.Size = UDim2.new(0, 200, 0, 100)
+        tab_drop.Visible = false
+
+        UIListLayout.Parent = tab_drop
+        UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+        tab.Name = "tab"
+        tab.Parent = tab_drop
+        tab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        tab.BackgroundTransparency = 1.000
+        tab.BorderSizePixel = 0
+        tab.Position = UDim2.new(-0.00499999989, 0, 0, 0)
+        tab.Size = UDim2.new(0, 200, 0, 25)
+        tab.Font = Enum.Font.Gotham
+        tab.Text = "Tab 1"
+        tab.TextColor3 = Color3.fromRGB(255, 255, 255)
+        tab.TextSize = 14.000
     end
 
     return WinTypes
