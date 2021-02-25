@@ -492,9 +492,11 @@ function Library:CreateWindow(winopts)
                         toggled = not toggled
                         main.BackgroundColor3 = toggled and options.Color or not toggled and Color3.fromRGB(14, 14, 21)
                     end)
+
+                    group_container.CanvasSize = UDim2.new(0, 0, 0,  UIListLayout_2.AbsoluteContentSize.Y)
                 end
 
-                tab_container.Size = UDim2.new(0, 499, 0, tab_grid.AbsoluteContentSize.Y)
+                tab_container.CanvasSize = UDim2.new(0, 499, 0, tab_grid.AbsoluteContentSize.Y)
                 return GroupTypes
             end
 
