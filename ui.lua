@@ -21,13 +21,15 @@ end})
 
 -- Create UI Function
 function Library:CreateWindow(winopts)
-    -- Create Metatable Variables
-    self.options.Text = (winopts and winopts.Text) or self.options.Text
-    self.options.Color = (winopts and winopts.Color) or self.options.Color
-    self.options.Key = (winopts and winopts.Key) or self.options.Key
-    self.windowdrag = true
-    self.sliderdrag = false
-    self.window_minified = true
+    local options = {}
+    local windowdrag = true
+    local sliderdrag = false
+    local window_minified = false
+
+    -- Create Options Variables
+    options.Text = (winopts and winopts.Text) or options.Text
+    options.Color = (winopts and winopts.Color) or options.Color
+    options.Key = (winopts and winopts.Key) or options.Key
 
     -- Create Regular Variables
     local WinTypes = {}
@@ -133,7 +135,7 @@ function Library:CreateWindow(winopts)
     title_2.Position = UDim2.new(0.0143061522, 0, 0, 0)
     title_2.Size = UDim2.new(0, 190, 0, 30)
     title_2.Font = Enum.Font.GothamBold
-    title_2.Text = self.options.Text
+    title_2.Text = options.Text
     title_2.TextColor3 = Color3.fromRGB(255, 255, 255)
     title_2.TextSize = 14.000
     title_2.TextXAlignment = Enum.TextXAlignment.Left
@@ -149,9 +151,9 @@ function Library:CreateWindow(winopts)
     end)
 
     mini.MouseButton1Click:Connect(function()
-        self.window_minified = not self.window_minified
-        sidebar.Visible = not self.window_minified
-        core.Size = UDim2.new(0, 699, 0, (self.window_minified and 30 or not self.window_minified and 440))
+        window_minified = not window_minified
+        sidebar.Visible = not window_minified
+        core.Size = UDim2.new(0, 699, 0, (window_minified and 30 or not window_minified and 440))
         wait(0.01)
         Services["TweenService"]:Create(mini, TweenInfo.new(0.250, Enum.EasingStyle.Quint), {
             Rotation = mini.Rotation - 180
@@ -191,7 +193,7 @@ function Library:CreateWindow(winopts)
 
     -- Window Toggle
     userinputservice.InputBegan:connect(function(input)
-        if input.KeyCode == Enum.KeyCode[self.options.Key] then
+        if input.KeyCode == Enum.KeyCode[options.Key] then
             core.Visible = not core.Visible
         end
     end)
@@ -212,11 +214,11 @@ function Library:CreateWindow(winopts)
 
     -- Color
     function WinTypes:SetColor(color)
-        self.options.Color = color
+        options.Color = color
     end
 
     function WinTypes:GetColor()
-        return self.options.Color
+        return options.Color
     end
 
     -- Visibility
@@ -245,7 +247,7 @@ function Library:CreateWindow(winopts)
 
         tab_section.Name = "tab_section"
         tab_section.Parent = button_container
-        tab_section.BackgroundColor3 = self.options.Color
+        tab_section.BackgroundColor3 = options.Color
         tab_section.BorderSizePixel = 0
         tab_section.Size = UDim2.new(0, 200, 0, 31)
 
@@ -333,7 +335,7 @@ function Library:CreateWindow(winopts)
             tab_grid.CellSize = UDim2.new(0, 229, 0, 390)
 
             tab.MouseButton1Click:Connect(function()
-                tab.TextColor3 = self.options.Color
+                tab.TextColor3 = options.Color
                 tab_container.Visible = not tab_container.Visible
                 for i,v in pairs(core:GetChildren()) do
                     if (v.Name:find("tab_") and v.Name ~= "tab_" .. Name .. "_container") then
