@@ -328,6 +328,7 @@ function Library:CreateWindow(winopts)
             tab.TextColor3 = Color3.fromRGB(255, 255, 255)
             tab.TextSize = 14.000
 
+            tab_drop.Size = UDim2.new(0, 200, 0, UIListLayout.AbsoluteContentSize.Y)
             ResizeTabList()
             return tabTypes
         end
