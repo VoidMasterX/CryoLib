@@ -141,7 +141,6 @@ function Library:CreateWindow(winopts)
     -- Buttons
     exit.MouseButton1Click:Connect(function()
         sidebar.Visible = false
-        tab_container.Visible = false
         Services["TweenService"]:Create(core, TweenInfo.new(0.400, Enum.EasingStyle.Quint), {
             BackgroundTransparency = 1
         }):Play()
@@ -152,7 +151,6 @@ function Library:CreateWindow(winopts)
     mini.MouseButton1Click:Connect(function()
         self.window_minified = not self.window_minified
         sidebar.Visible = not self.window_minified
-        tab_container.Visible = not self.window_minified
         core.Size = UDim2.new(0, 699, 0, (self.window_minified and 30 or not self.window_minified and 440))
         wait(0.01)
         Services["TweenService"]:Create(mini, TweenInfo.new(0.250, Enum.EasingStyle.Quint), {
