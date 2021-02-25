@@ -248,6 +248,7 @@ function Library:CreateWindow(winopts)
 
     -- Tab
     function WinTypes:CreateTabSection(Text)
+        local TabTypes = {}
         Text = Text or "TAB SECTION TITLE"
 
         local tab_section = Instance.new("Frame")
@@ -295,17 +296,25 @@ function Library:CreateWindow(winopts)
         UIListLayout.Parent = tab_drop
         UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-        tab.Name = "tab"
-        tab.Parent = tab_drop
-        tab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        tab.BackgroundTransparency = 1.000
-        tab.BorderSizePixel = 0
-        tab.Position = UDim2.new(-0.00499999989, 0, 0, 0)
-        tab.Size = UDim2.new(0, 200, 0, 25)
-        tab.Font = Enum.Font.Gotham
-        tab.Text = "Tab 1"
-        tab.TextColor3 = Color3.fromRGB(255, 255, 255)
-        tab.TextSize = 14.000
+        function TabTypes:CreateTab(Name)
+            Name = Name or "Tab"
+
+            local tab = Instance.new("TextButton")
+
+            tab.Name = "tab"
+            tab.Parent = tab_drop
+            tab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            tab.BackgroundTransparency = 1.000
+            tab.BorderSizePixel = 0
+            tab.Position = UDim2.new(-0.00499999989, 0, 0, 0)
+            tab.Size = UDim2.new(0, 200, 0, 25)
+            tab.Font = Enum.Font.Gotham
+            tab.Text = Name
+            tab.TextColor3 = Color3.fromRGB(255, 255, 255)
+            tab.TextSize = 14.000
+        end
+
+        return TabTypes
     end
 
     return WinTypes
