@@ -38,9 +38,6 @@ function Library:CreateWindow(winopts)
     local exit = Instance.new("TextButton")
     local mini = Instance.new("ImageButton")
     local title_2 = Instance.new("TextLabel")
-    local tab_container = Instance.new("ScrollingFrame")
-    local tab_grid = Instance.new("UIGridLayout")
-    local tab_padding = Instance.new("UIPadding")
 
     -- UI Protection
     local Protect = syn and syn.protect_gui or is_electron_function and gethui or function(ui) 
@@ -135,25 +132,6 @@ function Library:CreateWindow(winopts)
     title_2.TextColor3 = Color3.fromRGB(255, 255, 255)
     title_2.TextSize = 14.000
     title_2.TextXAlignment = Enum.TextXAlignment.Left
-
-    tab_container.Name = "tab_container"
-    tab_container.Parent = core
-    tab_container.Active = true
-    tab_container.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    tab_container.BackgroundTransparency = 1.000
-    tab_container.BorderSizePixel = 0
-    tab_container.Position = UDim2.new(0.286123037, 0, 0.0681818202, 0)
-    tab_container.Size = UDim2.new(0, 499, 0, 410)
-    tab_container.BottomImage = ""
-    tab_container.CanvasSize = UDim2.new(0, 0, 0, 0)
-    tab_container.ScrollBarThickness = 4
-    tab_container.TopImage = ""
-
-    tab_grid.Name = "tab_grid"
-    tab_grid.Parent = tab_container
-    tab_grid.SortOrder = Enum.SortOrder.LayoutOrder
-    tab_grid.CellPadding = UDim2.new(0, 10, 0, 10)
-    tab_grid.CellSize = UDim2.new(0, 229, 0, 390)
 
     -- Buttons
     exit.MouseButton1Click:Connect(function()
@@ -264,7 +242,7 @@ function Library:CreateWindow(winopts)
 
         tab_section.Name = "tab_section"
         tab_section.Parent = button_container
-        tab_section.BackgroundColor3 = Color3.fromRGB(85, 170, 255)
+        tab_section.BackgroundColor3 = self.options.Color
         tab_section.BorderSizePixel = 0
         tab_section.Size = UDim2.new(0, 200, 0, 31)
 
@@ -296,7 +274,7 @@ function Library:CreateWindow(winopts)
         tab_drop.BackgroundColor3 = Color3.fromRGB(18, 18, 27)
         tab_drop.BorderSizePixel = 0
         tab_drop.Position = UDim2.new(0, 0, 0.0756097585, 0)
-        tab_drop.Size = UDim2.new(0, 200, 0, 100)
+        tab_drop.Size = UDim2.new(0, 200, 0, 0)
         tab_drop.Visible = false
 
         UIListLayout.Parent = tab_drop
@@ -315,8 +293,11 @@ function Library:CreateWindow(winopts)
             Name = Name or "Tab"
 
             local tab = Instance.new("TextButton")
+            local tab_container = Instance.new("ScrollingFrame")
+            local tab_grid = Instance.new("UIGridLayout")
+            local tab_padding = Instance.new("UIPadding")
 
-            tab.Name = "tab"
+            tab.Name = "tab__" .. Name
             tab.Parent = tab_drop
             tab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             tab.BackgroundTransparency = 1.000
@@ -327,6 +308,41 @@ function Library:CreateWindow(winopts)
             tab.Text = Name
             tab.TextColor3 = Color3.fromRGB(255, 255, 255)
             tab.TextSize = 14.000
+
+            tab_container.Name = "tab_" .. Name .. "_container"
+            tab_container.Parent = core
+            tab_container.Active = true
+            tab_container.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            tab_container.BackgroundTransparency = 1.000
+            tab_container.BorderSizePixel = 0
+            tab_container.Position = UDim2.new(0.286123037, 0, 0.0681818202, 0)
+            tab_container.Size = UDim2.new(0, 499, 0, 410)
+            tab_container.BottomImage = ""
+            tab_container.CanvasSize = UDim2.new(0, 0, 0, 0)
+            tab_container.ScrollBarThickness = 4
+            tab_container.TopImage = ""
+            tab_container.Visible = false
+
+            tab_grid.Name = "tab_grid"
+            tab_grid.Parent = tab_container
+            tab_grid.SortOrder = Enum.SortOrder.LayoutOrder
+            tab_grid.CellPadding = UDim2.new(0, 10, 0, 10)
+            tab_grid.CellSize = UDim2.new(0, 229, 0, 390)
+
+            tab.MouseButton1Click:Connect(function()
+                tab.TextColor3 = self.options.Color
+                tab_container.Visible = not tab_container.Visible
+                for i,v in pairs(core:GetChildren()) do
+                    if (v.Name:find("tab_") and v.Name ~= "tab_" .. Name .. "_container") then
+                        v.Visible = false
+                    end
+                end
+                for i,v in pairs(tab_drop:GetChildren()) do
+                    if (v.Name:find("tab__") and v.Name ~= "tab__" .. Name) then
+                        v.TextColor3 = Color3.new(255, 255, 255)
+                    end
+                end
+            end)
 
             tab_drop.Size = UDim2.new(0, 200, 0, UIListLayout.AbsoluteContentSize.Y)
             ResizeTabList()
