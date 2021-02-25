@@ -22,7 +22,7 @@ end})
 -- Create UI Function
 function Library:CreateWindow(winopts)
     local options = {}
-    local windowdrag = true
+    local windowdrag = false
     local sliderdrag = false
     local window_minified = false
 
