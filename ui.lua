@@ -1,13 +1,7 @@
 -- Module Init
 local Library = {}
 Library.__index = Library
-local self = setmetatable({
-    options = {
-        Text = "UI TITLE",
-        Color = Color3.fromRGB(85, 170, 255),
-        Key = "RightShift",
-    }
-}, Library)
+local self = setmetatable({}, Library)
 
 -- Services
 local Services = setmetatable({}, {__index = function(Self, Index)
@@ -153,6 +147,7 @@ function Library:CreateWindow(winopts)
     mini.MouseButton1Click:Connect(function()
         window_minified = not window_minified
         sidebar.Visible = not window_minified
+        if (self.selected_container ~= nil) then self.selected_container.Visible = not window_minified end
         core.Size = UDim2.new(0, 699, 0, (window_minified and 30 or not window_minified and 440))
         wait(0.01)
         Services["TweenService"]:Create(mini, TweenInfo.new(0.250, Enum.EasingStyle.Quint), {
@@ -339,10 +334,10 @@ function Library:CreateWindow(winopts)
             tab_padding.PaddingLeft = UDim.new(0, 10)
             tab_padding.PaddingTop = UDim.new(0, 10)
 
-
             tab.MouseButton1Click:Connect(function()
                 tab.TextColor3 = options.Color
                 tab_container.Visible = not tab_container.Visible
+                self.selected_container = tab_container
                 for i,v in pairs(core:GetChildren()) do
                     if (v.Name:find("tab_") and v.Name ~= "tab_" .. Name .. "_container") then
                         v.Visible = false
@@ -425,6 +420,10 @@ function Library:CreateWindow(winopts)
                 groupbox_glow.ImageColor3 = Color3.fromRGB(0, 0, 0)
                 groupbox_glow.ScaleType = Enum.ScaleType.Slice
                 groupbox_glow.SliceCenter = Rect.new(20, 20, 280, 280)
+
+                function GroupTypes:CreateToggle(Name, Callback)
+
+                end
 
                 return GroupTypes
             end
