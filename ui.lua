@@ -137,6 +137,7 @@ function Library:CreateWindow(winopts)
     -- Buttons
     exit.MouseButton1Click:Connect(function()
         sidebar.Visible = false
+        if (self.selected_container ~= nil) then self.selected_container.Visible = false end
         Services["TweenService"]:Create(core, TweenInfo.new(0.400, Enum.EasingStyle.Quint), {
             BackgroundTransparency = 1
         }):Play()
