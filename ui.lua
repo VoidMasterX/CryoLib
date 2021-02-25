@@ -254,6 +254,7 @@ function Library:CreateWindow(winopts)
         local title = Instance.new("TextLabel")
         local drop = Instance.new("ImageButton")
         local tab_drop = Instance.new("Frame")
+        local UIListLayout = Instance.new("UIListLayout")
 
         tab_section.Name = "tab_section"
         tab_section.Parent = button_container
