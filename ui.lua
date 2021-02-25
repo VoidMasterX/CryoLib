@@ -423,9 +423,78 @@ function Library:CreateWindow(winopts)
                 groupbox_glow.SliceCenter = Rect.new(20, 20, 280, 280)
 
                 function GroupTypes:CreateToggle(Name, Callback)
+                    Name = Name or "UI TOGGLE"
+                    Callback = Callback or function(x)
+                        print(x)
+                    end
+                    local toggled = false
 
+                    local toggle = Instance.new("Frame")
+                    local glow = Instance.new("ImageLabel")
+                    local main = Instance.new("Frame")
+                    local title_4 = Instance.new("TextLabel")
+                    local button = Instance.new("TextButton")
+
+                    toggle.Name = "toggle"
+                    toggle.Parent = group_container
+                    toggle.BackgroundColor3 = Color3.fromRGB(18, 18, 27)
+                    toggle.BorderSizePixel = 0
+                    toggle.Position = UDim2.new(0.0436681211, 0, 0.0354700871, 0)
+                    toggle.Size = UDim2.new(0, 209, 0, 40)
+
+                    glow.Name = "glow"
+                    glow.Parent = toggle
+                    glow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                    glow.BackgroundTransparency = 1.000
+                    glow.BorderSizePixel = 0
+                    glow.Position = UDim2.new(0, -15, 0, -15)
+                    glow.Size = UDim2.new(1, 30, 1, 30)
+                    glow.ZIndex = 0
+                    glow.Image = "rbxassetid://4996891970"
+                    glow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+                    glow.ScaleType = Enum.ScaleType.Slice
+                    glow.SliceCenter = Rect.new(20, 20, 280, 280)
+
+                    main.Name = "main"
+                    main.Parent = toggle
+                    main.BackgroundColor3 = Color3.fromRGB(14, 14, 21)
+                    main.BorderSizePixel = 0
+                    main.Position = UDim2.new(0.0334928222, 0, 0.150000006, 0)
+                    main.Size = UDim2.new(0, 25, 0, 25)
+
+                    title_4.Name = "title"
+                    title_4.Parent = toggle
+                    title_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                    title_4.BackgroundTransparency = 1.000
+                    title_4.BorderColor3 = Color3.fromRGB(27, 42, 53)
+                    title_4.BorderSizePixel = 0
+                    title_4.Position = UDim2.new(0.186602876, 0, 0.150000006, 0)
+                    title_4.Size = UDim2.new(0, 170, 0, 25)
+                    title_4.Font = Enum.Font.Gotham
+                    title_4.Text = Name
+                    title_4.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    title_4.TextSize = 14.000
+                    title_4.TextXAlignment = Enum.TextXAlignment.Left
+
+                    button.Name = "button"
+                    button.Parent = toggle
+                    button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                    button.BackgroundTransparency = 1.000
+                    button.BorderSizePixel = 0
+                    button.Position = UDim2.new(0.0334928222, 0, 0.150000006, 0)
+                    button.Size = UDim2.new(0, 202, 0, 25)
+                    button.Font = Enum.Font.SourceSans
+                    button.Text = ""
+                    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    button.TextSize = 14.000
+
+                    button.MouseButton1Click:Connect(function()
+                        toggled = not toggled
+                        main.BackgroundColor3 = toggled and options.Color or not toggled and Color3.fromRGB(14, 14, 21)
+                    end)
                 end
 
+                tab_container.Size = UDim2.new(0, 499, 0, tab_grid.AbsoluteContentSize.Y)
                 return GroupTypes
             end
 
