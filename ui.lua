@@ -1,7 +1,13 @@
 -- Module Init
 local Library = {}
 Library.__index = Library
-local self = setmetatable({}, Library)
+local self = setmetatable({
+    options = {
+        Text = "UI TITLE",
+        Color = Color3.fromRGB(85, 170, 255),
+        Key = "RightShift",
+    }
+}, Library)
 
 -- Services
 local Services = setmetatable({}, {__index = function(Self, Index)
@@ -16,10 +22,9 @@ end})
 -- Create UI Function
 function Library:CreateWindow(winopts)
     -- Create Metatable Variables
-    self.options = {}
-    self.options.Text = (winopts and winopts.Text) or "UI TITLE"
-    self.options.Color = (winopts and winopts.Color) or Color3.fromRGB(85, 170, 255)
-    self.options.Key = (winopts and winopts.Key) or "RightShift"
+    self.options.Text = (winopts and winopts.Text) or self.options.Text
+    self.options.Color = (winopts and winopts.Color) or self.options.Color
+    self.options.Key = (winopts and winopts.Key) or self.options.Key
     self.windowdrag = true
     self.sliderdrag = false
     self.window_minified = true
