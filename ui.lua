@@ -281,6 +281,7 @@ function Library:CreateWindow(winopts)
         drop.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         drop.BackgroundTransparency = 1.000
         drop.BorderSizePixel = 0
+        drop.Rotation = 180
         drop.Position = UDim2.new(0.849163115, 0, 0, 0)
         drop.Size = UDim2.new(0, 30, 0, 30)
         drop.Image = "rbxassetid://6031094687"
@@ -296,7 +297,16 @@ function Library:CreateWindow(winopts)
         UIListLayout.Parent = tab_drop
         UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
+        drop.MouseButton1Click:Connect(function()
+            tab_drop.Visible = not tab_drop.Visible
+
+            Services["TweenService"]:Create(drop, TweenInfo.new(0.250, Enum.EasingStyle.Quint), {
+                Rotation = drop.Rotation - 180
+            }):Play()
+        end)
+
         function TabTypes:CreateTab(Name)
+            local tabTypes = {}
             Name = Name or "Tab"
 
             local tab = Instance.new("TextButton")
@@ -312,6 +322,8 @@ function Library:CreateWindow(winopts)
             tab.Text = Name
             tab.TextColor3 = Color3.fromRGB(255, 255, 255)
             tab.TextSize = 14.000
+
+            return tabTypes
         end
 
         return TabTypes
