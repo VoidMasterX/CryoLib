@@ -215,6 +215,11 @@ function Library:CreateWindow(winopts)
         end
     end)
 
+    local function ResizeTabList()
+        local Y = tab_layout.AbsoluteContentSize.Y + 20
+        button_container.CanvasSize = UDim2.new(0, 0, 0, Y)
+    end
+
     -- Title
     function WinTypes:SetTitle(title)
         title_2.Text = title
@@ -299,7 +304,7 @@ function Library:CreateWindow(winopts)
 
         drop.MouseButton1Click:Connect(function()
             tab_drop.Visible = not tab_drop.Visible
-
+            ResizeTabList()
             Services["TweenService"]:Create(drop, TweenInfo.new(0.250, Enum.EasingStyle.Quint), {
                 Rotation = drop.Rotation - 180
             }):Play()
@@ -323,6 +328,7 @@ function Library:CreateWindow(winopts)
             tab.TextColor3 = Color3.fromRGB(255, 255, 255)
             tab.TextSize = 14.000
 
+            ResizeTabList()
             return tabTypes
         end
 
