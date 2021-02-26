@@ -491,6 +491,57 @@ function Library:CreateWindow(winopts)
                     button.MouseButton1Click:Connect(function()
                         toggled = not toggled
                         main.BackgroundColor3 = toggled and options.Color or not toggled and Color3.fromRGB(14, 14, 21)
+                        if (Callback) then
+                            Callback(toggled)
+                        end
+                    end)
+
+                    group_container.CanvasSize = UDim2.new(0, 0, 0, UIListLayout_2.AbsoluteContentSize.Y + 20)
+                end
+
+                function GroupTypes:CreateButton(Name, Callback)
+                    Name = Name or "UI BUTTON"
+                    Callback = Callback or function()
+                        print("clicked")
+                    end
+                    local button_2 = Instance.new("Frame")
+                    local glow_2 = Instance.new("ImageLabel")
+                    local main_2 = Instance.new("TextButton")
+
+                    button_2.Name = "button"
+                    button_2.Parent = group_container
+                    button_2.BackgroundColor3 = Color3.fromRGB(18, 18, 27)
+                    button_2.BorderSizePixel = 0
+                    button_2.Position = UDim2.new(0.0436681211, 0, 0.0354700871, 0)
+                    button_2.Size = UDim2.new(0, 209, 0, 40)
+
+                    glow_2.Name = "glow"
+                    glow_2.Parent = button_2
+                    glow_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                    glow_2.BackgroundTransparency = 1.000
+                    glow_2.BorderSizePixel = 0
+                    glow_2.Position = UDim2.new(0, -15, 0, -15)
+                    glow_2.Size = UDim2.new(1, 30, 1, 30)
+                    glow_2.ZIndex = 0
+                    glow_2.Image = "rbxassetid://4996891970"
+                    glow_2.ImageColor3 = Color3.fromRGB(0, 0, 0)
+                    glow_2.ScaleType = Enum.ScaleType.Slice
+                    glow_2.SliceCenter = Rect.new(20, 20, 280, 280)
+
+                    main_2.Name = "main"
+                    main_2.Parent = button_2
+                    main_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                    main_2.BackgroundTransparency = 1.000
+                    main_2.Size = UDim2.new(0, 209, 0, 40)
+                    main_2.Font = Enum.Font.Gotham
+                    main_2.Text = Name
+                    main_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    main_2.TextSize = 14.000
+
+                    main_2.MouseButton1Click:Connect(function()
+                        if (Callback) then
+                            Callback()
+                        end
                     end)
 
                     group_container.CanvasSize = UDim2.new(0, 0, 0, UIListLayout_2.AbsoluteContentSize.Y + 20)
