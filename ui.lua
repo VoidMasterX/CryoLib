@@ -491,6 +491,9 @@ function Library:CreateWindow(winopts)
                     button.MouseButton1Click:Connect(function()
                         toggled = not toggled
                         main.BackgroundColor3 = toggled and options.Color or not toggled and Color3.fromRGB(14, 14, 21)
+                        Services["TweenService"]:Create(main, TweenInfo.new(0.250, Enum.EasingStyle.Quint), {
+                            BackgroundTransparency = toggled and 1.000 or not toggled and 0.000
+                        })
                         if (Callback) then
                             Callback(toggled)
                         end
