@@ -539,6 +539,13 @@ function Library:CreateWindow(winopts)
                     main_2.TextSize = 14.000
 
                     main_2.MouseButton1Click:Connect(function()
+                        client.services["TweenService"]:Create(main_2, TweenInfo.new(0.250, Enum.EasingStyle.Quint), {
+                            TextSize = 10.000
+                        })
+                        wait(0.01)
+                        client.services["TweenService"]:Create(main_2, TweenInfo.new(0.250, Enum.EasingStyle.Quint), {
+                            TextSize = 14.000
+                        })
                         if (Callback) then
                             Callback()
                         end
